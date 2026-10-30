@@ -97,6 +97,19 @@ html, body { height: 100%; font-family: "Microsoft YaHei", "PingFang SC", sans-s
 
 #help { position: fixed; right: 10px; bottom: 10px; background: rgba(20,30,22,.85); color: #cfd8cf; font-size: 11px; padding: 7px 10px; border-radius: 8px; line-height: 1.6; z-index: 15; max-width: 60vw; }
 
+/* 棋盘右下角悬浮旋转按钮：仅在选中手牌时出现，移动端拇指可达 */
+.float-rot {
+  position: absolute; right: 16px; bottom: 16px;
+  width: 64px; height: 64px; border-radius: 50%;
+  background: #3E6B21; color: #fff; border: 0;
+  font-size: 32px; line-height: 1; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,.45); z-index: 18;
+  display: none; align-items: center; justify-content: center;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.float-rot.show { display: flex; }
+.float-rot:active { transform: translateY(2px); background: #2A4A14; }
+
 /* ---------- 移动端适配 ---------- */
 @media (max-width: 860px) {
   #main { flex-direction: column; }
@@ -110,6 +123,7 @@ html, body { height: 100%; font-family: "Microsoft YaHei", "PingFang SC", sans-s
   #toolbar { width: 100%; justify-content: space-between; }
   .menu-card h1 { font-size: 25px; }
   #help { display: none; }
+  .float-rot { width: 72px; height: 72px; font-size: 36px; right: 14px; bottom: 14px; }
 }
 @media (max-width: 480px) {
   .tilechip { width: 72px; height: 76px; }
@@ -156,7 +170,7 @@ html, body { height: 100%; font-family: "Microsoft YaHei", "PingFang SC", sans-s
     <button class="startbtn" id="startBtn" onclick="startFromMenu()">开始游戏</button>
     <div class="rulehint">
       🎯 计分：栖息地（被标记板块数字之和）+ 生态廊道（闭合且≥2标记的连通区板块数）+ 生物多样性（廊道内小动物数）+ 勘探数据（手牌不同数字之和）。<br>
-      🖱/👆 点击手牌选中 → 点击棋盘空格落子（点红框板块可自选压盖）；拖动平移，滚轮/双指缩放，R 键或旋转按钮旋转。
+      🖱/👆 点击手牌选中 → 点击棋盘空格落子（点红框板块可自选压盖）；拖动平移，滚轮/双指缩放，R 键 / 旋转按钮 / 鼠标右键均可旋转。
     </div>
   </div>
 </div>
@@ -176,6 +190,7 @@ html, body { height: 100%; font-family: "Microsoft YaHei", "PingFang SC", sans-s
   <div id="main">
     <div id="boardwrap">
       <canvas id="board"></canvas>
+      <button id="floatRot" class="float-rot" onclick="rotateSel()" title="旋转选中板块（R键 / 右键 / 此按钮）">⟳</button>
       <div id="resolve">
         <div id="resolveText"></div>
         <button id="resolveBtn" onclick="doResolvePlace()">压盖米宝</button>
@@ -192,7 +207,7 @@ html, body { height: 100%; font-family: "Microsoft YaHei", "PingFang SC", sans-s
       </div>
     </div>
   </div>
-  <div id="help">拖动=平移 · 滚轮/双指=缩放 · R/旋转键=旋转<br>选中手牌后点击棋盘放置</div>
+  <div id="help">拖动=平移 · 滚轮/双指=缩放 · R键/旋转按钮/右键=旋转<br>选中手牌后点击棋盘放置</div>
 </div>
 
 <div id="results"><div class="rbox"></div></div>

@@ -18,10 +18,34 @@ function initRender() {
   cv.addEventListener("pointerup", onPointerUp);
   cv.addEventListener("pointercancel", onPointerCancel);
   cv.addEventListener("wheel", onWheel, { passive: false });
+  cv.addEventListener("contextmenu", onContextMenu);
   cv.style.touchAction = "none"; // 阻止浏览器默认手势（滚动/缩放），交由画布处理
+  window.addEventListener("keydown", onKeyDown);
   window.addEventListener("resize", fitCanvas);
   fitCanvas();
   requestAnimationFrame(loop);
+}
+
+/* 键盘：R=旋转选中板块（Shift+R 反向），Esc=取消选择 */
+function onKeyDown(ev) {
+  if (ev.repeat) return;
+  // 输入控件聚焦时不拦截
+  const tag = (document.activeElement && document.activeElement.tagName) || "";
+  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+  const k = ev.key.toLowerCase();
+  if (k === "r") {
+    // Shift+R 反向旋转（-1 → 3 → 2 …）
+    ev.preventDefault();
+    rotateSel(ev.shiftKey ? 3 : 1);
+  } else if (k === "escape") {
+    if (placingTile) { placingTile = null; hoverCell = null; G.selected = -1; G.selRot = 0; render(); updateHUD(); }
+  }
+}
+
+/* 右键（画布上）= 旋转选中板块，并阻止浏览器菜单 */
+function onContextMenu(ev) {
+  ev.preventDefault();
+  rotateSel(1);
 }
 
 function fitCanvas() {
@@ -352,6 +376,7 @@ let _pinchDist = 0;
 let _tapMoved = false;
 
 function onPointerDown(ev) {
+  if (ev.button === 2) return; // 右键专属旋转，不进入平移/点击流程
   cv.setPointerCapture(ev.pointerId);
   _pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
   if (_pointers.size === 1) {
@@ -603,6 +628,9 @@ function updateHUD() {
   // rotate button label
   const rb = document.getElementById("rotBtn");
   if (rb) rb.textContent = `旋转 ${G.selRot * 90}°`;
+  // 悬浮旋转按钮：仅人类选中手牌时出现
+  const fr = document.getElementById("floatRot");
+  if (fr) fr.classList.toggle("show", !!(placingTile && G.phase === "play" && G.players[G.cur].type === "human"));
 }
 
 function selectTile(i) {
@@ -614,9 +642,10 @@ function selectTile(i) {
   render(); updateHUD();
 }
 
-function rotateSel() {
+function rotateSel(step) {
   if (G.phase !== "play" || !placingTile || G.players[G.cur].type !== "human") return;
-  G.selRot = (G.selRot + 1) % 4;
+  const inc = (step === undefined) ? 1 : step;
+  G.selRot = ((G.selRot + inc) % 4 + 4) % 4;
   placingTile.rot = G.selRot;
   render(); updateHUD();
 }
