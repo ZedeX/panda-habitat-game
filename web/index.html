@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27><text y=%2726%27 font-size=%2726%27>🐼</text></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>大熊猫国家公园 · 网页版</title>
+<style>
+:root {
+  --desk: #2E4636;
+  --panel: #F7F2E6;
+  --ink: #3E3A32;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; background: var(--desk); }
+
+/* ---------- 菜单（移动端可滚动） ---------- */
+#menu {
+  position: fixed; inset: 0; background: linear-gradient(160deg, #4E7C3A 0%, #2E4636 60%, #1E2E22 100%);
+  display: flex; justify-content: center; align-items: flex-start;
+  overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px 12px 28px; z-index: 50;
+}
+.menu-card { width: 100%; max-width: 640px; background: var(--panel); border-radius: 20px; padding: 26px 22px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.5); align-self: flex-start; }
+.menu-card h1 { font-size: 30px; color: #3E6B21; margin-bottom: 4px; }
+.menu-card .en { color: #8a8a7a; letter-spacing: 3px; font-size: 12px; margin-bottom: 14px; }
+.menu-card p.desc { color: #5a5648; font-size: 13.5px; line-height: 1.65; margin-bottom: 16px; text-align: left; }
+.menu-card p.desc.small { font-size: 12px; color: #8a8578; }
+.mrow { margin: 12px 0; text-align: left; }
+.mrow > label { display: block; font-size: 14px; color: #3E3A32; margin-bottom: 6px; font-weight: bold; }
+.mrow select { padding: 7px 12px; border-radius: 8px; border: 2px solid #C9CFC9; font-size: 14px; max-width: 100%; }
+.terrain-pick { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+.tchip { padding: 9px 14px; border-radius: 10px; border: 3px solid transparent; cursor: pointer; font-size: 14px; font-weight: bold; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.4); user-select: none; transition: transform .1s; }
+.tchip.picked { border-color: #FFD84D; transform: scale(1.06); }
+
+/* 每玩家设置行 */
+#playerConfig { display: flex; flex-direction: column; gap: 8px; }
+.prow { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: #fff; border: 2px solid #e4ddc8; border-radius: 10px; flex-wrap: wrap; }
+.prow .pdot { width: 14px; height: 14px; border-radius: 50%; flex: none; }
+.prow .pname { flex: 1; min-width: 92px; font-weight: bold; color: #3E3A32; font-size: 14px; }
+.prow .seg { display: inline-flex; border: 2px solid #C9CFC9; border-radius: 8px; overflow: hidden; }
+.prow .segbtn { padding: 6px 12px; border: 0; background: #fff; cursor: pointer; font-size: 13px; color: #3E3A32; }
+.prow .segbtn.active { background: #3E6B21; color: #fff; }
+.prow .lvl { padding: 6px 8px; border-radius: 8px; border: 2px solid #C9CFC9; font-size: 13px; }
+
+.startbtn { margin-top: 18px; background: #3E6B21; color: #fff; border: 0; font-size: 18px; padding: 13px 48px; border-radius: 12px; cursor: pointer; box-shadow: 0 6px 0 #2A4A14; width: 100%; max-width: 320px; }
+.startbtn:active { transform: translateY(3px); box-shadow: 0 3px 0 #2A4A14; }
+.startbtn:disabled { background: #a7b59a; box-shadow: 0 6px 0 #8a9a7c; }
+.rulehint { margin-top: 14px; font-size: 12px; color: #8a8a7a; line-height: 1.6; text-align: left; }
+
+/* ---------- 游戏内 ---------- */
+#app { display: none; height: 100%; flex-direction: column; }
+#topbar { background: rgba(20,30,22,.92); color: #fff; display: flex; align-items: center; gap: 12px; padding: 8px 14px; flex-wrap: wrap; }
+#turnLabel { font-size: 16px; font-weight: bold; color: #FFD84D; min-width: 150px; flex: none; }
+#players { display: flex; gap: 8px; flex: 1; overflow-x: auto; }
+.pcard { background: rgba(255,255,255,.10); border-radius: 10px; padding: 6px 10px; font-size: 12px; border: 2px solid transparent; white-space: nowrap; }
+.pcard.active { border-color: #FFD84D; background: rgba(255,216,77,.12); }
+.pname { font-weight: bold; font-size: 13.5px; }
+.badge { font-size: 11px; font-weight: normal; background: rgba(0,0,0,.28); padding: 1px 6px; border-radius: 6px; margin-left: 4px; }
+.badge.human { background: #3E6B21; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+.pstats { color: #cfd8cf; margin-top: 2px; }
+#toolbar { display: flex; gap: 6px; flex-wrap: wrap; }
+#toolbar button { background: #4E7C3A; color: #fff; border: 0; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 13px; }
+#toolbar button:hover { background: #5F8F3A; }
+#toolbar button:active { transform: translateY(1px); }
+
+#main { flex: 1; display: flex; min-height: 0; }
+#boardwrap { flex: 1; position: relative; min-height: 0; }
+#board { position: absolute; inset: 0; cursor: crosshair; touch-action: none; }
+#sidebar { width: 320px; background: var(--panel); display: flex; flex-direction: column; border-left: 4px solid #2A4A14; min-height: 0; }
+.sidebar-sec { padding: 12px 14px; border-bottom: 1px solid #ddd6c2; }
+.sidebar-sec h3 { font-size: 13px; color: #3E6B21; margin-bottom: 8px; }
+#hand { display: flex; flex-wrap: wrap; gap: 8px; min-height: 96px; }
+.tilechip { width: 84px; height: 88px; border: 3px solid #C9CFC9; border-radius: 10px; overflow: hidden; cursor: pointer; background: #fff; position: relative; transition: transform .1s; }
+.tilechip:hover { transform: translateY(-3px); }
+.tilechip.sel { border-color: #FFD84D; box-shadow: 0 4px 12px rgba(0,0,0,.25); }
+.tilechip img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.tilechip .tc-sub { position: absolute; left: 6px; bottom: 4px; font-size: 11px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.55); z-index: 2; }
+.tilechip .tc-own { position: absolute; right: 6px; top: 4px; font-size: 11px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.55); z-index: 2; }
+.aiwait { color: #8a8578; font-size: 13px; padding: 10px; }
+#log { flex: 1; overflow-y: auto; font-size: 12px; line-height: 1.7; color: #4a4638; padding: 10px 14px; }
+#log div { border-bottom: 1px dashed #e5dec9; padding: 2px 0; }
+#resolve { display: none; position: absolute; left: 50%; top: 16px; transform: translateX(-50%); background: var(--panel); border: 3px solid #E05555; border-radius: 14px; padding: 14px 18px; z-index: 20; box-shadow: 0 10px 30px rgba(0,0,0,.4); max-width: 90%; text-align: center; }
+#resolveText { font-size: 13.5px; line-height: 1.65; margin-bottom: 10px; }
+#resolveBtn { background: #E05555; color: #fff; border: 0; padding: 9px 20px; font-size: 14px; border-radius: 10px; cursor: pointer; }
+#resolveBtn:disabled { background: #aaa; cursor: default; }
+
+#results { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 60; align-items: center; justify-content: center; }
+.rbox { background: var(--panel); border-radius: 20px; padding: 30px 40px; box-shadow: 0 24px 80px rgba(0,0,0,.6); text-align: center; max-width: 720px; max-height: 90vh; overflow-y: auto; }
+.rbox h2 { color: #3E6B21; margin-bottom: 14px; }
+.rtable { border-collapse: collapse; margin: 0 auto 14px; }
+.rtable th, .rtable td { padding: 8px 14px; border-bottom: 2px solid #ddd6c2; font-size: 14px; }
+.rtable th { color: #3E6B21; }
+.rtable .winner { background: #FFF3C4; }
+.winmsg { font-size: 18px; font-weight: bold; color: #B56A28; margin-bottom: 16px; }
+.rbox button { background: #3E6B21; color: #fff; border: 0; font-size: 16px; padding: 12px 40px; border-radius: 10px; cursor: pointer; }
+
+#help { position: fixed; right: 10px; bottom: 10px; background: rgba(20,30,22,.85); color: #cfd8cf; font-size: 11px; padding: 7px 10px; border-radius: 8px; line-height: 1.6; z-index: 15; max-width: 60vw; }
+
+/* ---------- 移动端适配 ---------- */
+@media (max-width: 860px) {
+  #main { flex-direction: column; }
+  #sidebar { width: 100%; border-left: 0; border-top: 4px solid #2A4A14; max-height: 42vh; }
+  #boardwrap { min-height: 44vh; }
+  /* 顶栏改为纵向堆叠，避免回合横幅与玩家卡片重叠 */
+  #topbar { flex-direction: column; align-items: stretch; gap: 6px; padding: 6px 10px; }
+  #turnLabel { min-width: 0; font-size: 14px; flex: none; }
+  #players { width: 100%; overflow-x: auto; }
+  .pcard { flex: 0 0 auto; }
+  #toolbar { width: 100%; justify-content: space-between; }
+  .menu-card h1 { font-size: 25px; }
+  #help { display: none; }
+}
+@media (max-width: 480px) {
+  .tilechip { width: 72px; height: 76px; }
+  .prow .pname { min-width: 76px; font-size: 13px; }
+  #toolbar button { padding: 7px 9px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div id="menu">
+  <div class="menu-card">
+    <h1>🐼 大熊猫国家公园</h1>
+    <div class="en">GIANT PANDA NATIONAL PARK</div>
+    <p class="desc">
+      你将扮演公园的动物保护工作者，为珍稀动物（大熊猫、林麝、雪豹、欧亚水獭）开辟并连通栖息地、
+      拼接地形地貌、保护生物多样性。<b>本局使用专家规则（竞赛同款）</b>：板块地形向外扩张后，
+      若你的<b>栖息地总面积 ≥ 10</b>（连通同类地形板块上的数字之和，已被压盖的数字不计），
+      即可把 1 枚动物米宝压盖在该地形的数字上；压盖后面积仍 ≥10 可继续建立。
+    </p>
+    <p class="desc small">
+      计分：栖息地（压盖数字之和）+ 生态廊道（闭合且含 ≥2 枚自己米宝的连通区板块数）+ 生物多样性（廊道内小动物）+ 勘探数据（手牌不同数字之和）。
+    </p>
+
+    <div class="mrow">
+      <label>玩家人数</label>
+      <select id="numPlayers">
+        <option value="2">2 人</option>
+        <option value="3">3 人</option>
+        <option value="4" selected>4 人</option>
+      </select>
+    </div>
+
+    <div class="mrow">
+      <label>选择动物（需选满 <span id="needN">4</span> 种，每人一种）</label>
+      <div class="terrain-pick" id="terrainPick"></div>
+    </div>
+
+    <div class="mrow">
+      <label>玩家设置（可设为人类或电脑，电脑分三档难度）</label>
+      <div id="playerConfig"></div>
+    </div>
+
+    <button class="startbtn" id="startBtn" onclick="startFromMenu()">开始游戏</button>
+    <div class="rulehint">
+      🎯 计分：栖息地（被标记板块数字之和）+ 生态廊道（闭合且≥2标记的连通区板块数）+ 生物多样性（廊道内小动物数）+ 勘探数据（手牌不同数字之和）。<br>
+      🖱/👆 点击手牌选中 → 点击棋盘空格落子（点红框板块可自选压盖）；拖动平移，滚轮/双指缩放，R 键或旋转按钮旋转。
+    </div>
+  </div>
+</div>
+
+<div id="app">
+  <div id="topbar">
+    <div id="turnLabel">—</div>
+    <div id="players"></div>
+    <div id="toolbar">
+      <button id="rotBtn" onclick="rotateSel()">旋转 0°</button>
+      <button onclick="zoomBy(1.2)">＋</button>
+      <button onclick="zoomBy(0.83)">－</button>
+      <button onclick="endMyTurn()">结束回合</button>
+      <button onclick="location.reload()">重开</button>
+    </div>
+  </div>
+  <div id="main">
+    <div id="boardwrap">
+      <canvas id="board"></canvas>
+      <div id="resolve">
+        <div id="resolveText"></div>
+        <button id="resolveBtn" onclick="doResolvePlace()">压盖米宝</button>
+      </div>
+    </div>
+    <div id="sidebar">
+      <div class="sidebar-sec">
+        <h3>🃏 当前玩家手牌</h3>
+        <div id="hand"></div>
+      </div>
+      <div class="sidebar-sec" style="flex:1; display:flex; flex-direction:column; min-height:0;">
+        <h3>📜 游戏日志</h3>
+        <div id="log"></div>
+      </div>
+    </div>
+  </div>
+  <div id="help">拖动=平移 · 滚轮/双指=缩放 · R/旋转键=旋转<br>选中手牌后点击棋盘放置</div>
+</div>
+
+<div id="results"><div class="rbox"></div></div>
+
+<script src="assets_db.js"></script>
+<script src="game.js"></script>
+<script src="ui.js"></script>
+<script src="ai.js"></script>
+<script>
+/* ---------------- 菜单逻辑 ---------------- */
+let picked = [];                 // 已选地形（顺序即玩家顺序）
+let playerCfgs = [];             // 每玩家 {terrain, type, level}
+
+function initMenu() {
+  const box = document.getElementById("terrainPick");
+  box.innerHTML = "";
+  TKEYS.forEach(t => {
+    const meta = TERRAIN_META[t];
+    const d = document.createElement("div");
+    d.className = "tchip" + (picked.includes(t) ? " picked" : "");
+    d.style.background = meta.fill;
+    d.textContent = meta.name;
+    d.onclick = () => togglePick(t, d);
+    box.appendChild(d);
+  });
+  buildPlayerConfig();
+}
+
+function togglePick(t, el) {
+  const n = +document.getElementById("numPlayers").value;
+  if (picked.includes(t)) {
+    picked = picked.filter(x => x !== t);
+    el.classList.remove("picked");
+  } else if (picked.length < n) {
+    picked.push(t);
+    el.classList.add("picked");
+  }
+  document.getElementById("needN").textContent = n;
+  buildPlayerConfig();
+  refreshStartBtn();
+}
+
+/* 依据人数与已选动物，重建每玩家设置行 */
+function buildPlayerConfig() {
+  const n = +document.getElementById("numPlayers").value;
+  const terr = picked.slice(0, n);
+  // 保留旧配置中仍有效的部分
+  const old = playerCfgs;
+  playerCfgs = [];
+  for (let i = 0; i < n; i++) {
+    const prev = old[i] || {};
+    playerCfgs.push({
+      terrain: terr[i] || TKEYS[i],
+      type: prev.type || (i === 0 ? "human" : "ai"),
+      level: prev.level || "medium",
+    });
+  }
+  const wrap = document.getElementById("playerConfig");
+  wrap.innerHTML = "";
+  playerCfgs.forEach((cfg, i) => {
+    const t = TERRAIN_META[cfg.terrain];
+    const row = document.createElement("div");
+    row.className = "prow";
+    const lvlOpts = ["hard", "medium", "easy"].map(l =>
+      `<option value="${l}"${cfg.level === l ? " selected" : ""}>${ {hard:"困难（最佳策略）", medium:"中等", easy:"简单"}[l] }</option>`).join("");
+    row.innerHTML =
+      `<span class="pdot" style="background:${t.fill}"></span>` +
+      `<span class="pname">${ANIMAL_NAMES[ANIMAL_OF[cfg.terrain]]}</span>` +
+      `<div class="seg">` +
+        `<button class="segbtn${cfg.type==="human"?" active":""}" data-type="human">人类</button>` +
+        `<button class="segbtn${cfg.type==="ai"?" active":""}" data-type="ai">电脑</button>` +
+      `</div>` +
+      `<select class="lvl"${cfg.type==="ai"?"":" style=\"display:none\""}>${lvlOpts}</select>`;
+    const segBtns = row.querySelectorAll(".segbtn");
+    segBtns.forEach(b => b.onclick = () => {
+      cfg.type = b.dataset.type;
+      segBtns.forEach(x => x.classList.toggle("active", x === b));
+      row.querySelector(".lvl").style.display = (cfg.type === "ai") ? "" : "none";
+      refreshStartBtn();
+    });
+    row.querySelector(".lvl").onchange = (e) => { cfg.level = e.target.value; };
+    wrap.appendChild(row);
+  });
+  refreshStartBtn();
+}
+
+function refreshStartBtn() {
+  const n = +document.getElementById("numPlayers").value;
+  const btn = document.getElementById("startBtn");
+  const ok = picked.length === n;
+  btn.disabled = !ok;
+  btn.textContent = ok ? "开始游戏" : `还需选择 ${n - picked.length} 种动物`;
+}
+
+function startFromMenu() {
+  const n = +document.getElementById("numPlayers").value;
+  if (picked.length !== n) {
+    alert(`请选择 ${n} 种动物（当前已选 ${picked.length}）`);
+    return;
+  }
+  // 把当前玩家设置按已选地形顺序对齐
+  const configs = playerCfgs.map((c, i) => ({
+    terrain: picked[i],
+    type: c.type,
+    level: c.level,
+    style: i % 2,   // 同难度下用 style 区分风格变体，使不同电脑行棋方式不同
+  }));
+  document.getElementById("menu").style.display = "none";
+  document.getElementById("app").style.display = "flex";
+  preloadArt();
+  newGame(configs);
+  initRender();
+  updateHUD();
+  // 居中相机
+  CAM.x = 0; CAM.y = 0; CAM.zoom = 1;
+  // 轮到电脑则自动开走
+  if (typeof onAdvanceTurn === "function") onAdvanceTurn();
+}
+
+document.getElementById("numPlayers").addEventListener("change", () => {
+  document.getElementById("needN").textContent = document.getElementById("numPlayers").value;
+  buildPlayerConfig();
+  refreshStartBtn();
+});
+
+/* 默认 4 人 → 预选全部 4 种动物 */
+picked = TKEYS.slice();
+initMenu();
+</script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>大熊猫国家公园 · 4人竞赛策略卡</title>
+<style>
+:root { --panel:#F7F2E6; --ink:#3E3A32; --green:#3E6B21; --gold:#B56A28; --red:#C74A3A; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Microsoft YaHei","PingFang SC",sans-serif; background:#2E4636; padding:20px; line-height:1.65; }
+.wrap { max-width:900px; margin:0 auto; }
+h1 { color:#fff; font-size:26px; margin-bottom:2px; }
+.sub { color:#cfd8cf; font-size:13px; margin-bottom:18px; }
+.card { background:var(--panel); border-radius:16px; padding:22px 28px; margin-bottom:18px; box-shadow:0 8px 30px rgba(0,0,0,.35); }
+h2 { color:var(--green); font-size:19px; margin-bottom:10px; }
+h3 { color:var(--gold); font-size:15px; margin:14px 0 6px; }
+p, li { font-size:14px; color:#4a4638; }
+ul { padding-left:22px; }
+table { border-collapse:collapse; width:100%; margin:8px 0; background:#fff; border-radius:10px; overflow:hidden; }
+th,td { padding:8px 12px; border-bottom:2px solid #eee5d0; font-size:13.5px; text-align:left; vertical-align:top; }
+th { background:var(--green); color:#fff; font-size:13px; }
+tr:last-child td { border-bottom:none; }
+.big { font-size:17px; font-weight:bold; color:var(--green); }
+.formula { background:#fff; border:3px dashed var(--green); border-radius:12px; padding:14px 18px; text-align:center; font-size:16px; font-weight:bold; color:var(--ink); margin:10px 0; }
+.formula small { display:block; font-size:12px; font-weight:normal; color:#8a8a7a; margin-top:4px; }
+.badge { display:inline-block; background:var(--green); color:#fff; border-radius:20px; padding:1px 10px; font-size:12px; margin-right:6px; }
+.warn { background:#FDECEA; border-left:4px solid var(--red); padding:8px 12px; border-radius:0 8px 8px 0; font-size:13.5px; margin:8px 0; }
+.tip { background:#EFF7E8; border-left:4px solid var(--green); padding:8px 12px; border-radius:0 8px 8px 0; font-size:13.5px; margin:8px 0; }
+.step { display:flex; gap:12px; margin:10px 0; align-items:flex-start; }
+.stepnum { flex:none; width:30px; height:30px; border-radius:50%; background:var(--gold); color:#fff; font-weight:bold; display:flex; align-items:center; justify-content:center; font-size:15px; }
+.piggy { display:flex; gap:10px; flex-wrap:wrap; margin:10px 0; }
+.pig { flex:1; min-width:150px; background:#fff; border-radius:12px; padding:12px; text-align:center; border:2px solid #eee5d0; }
+.pig .amt { font-size:22px; font-weight:900; color:var(--gold); }
+.pig .nm { font-size:14px; font-weight:bold; color:var(--ink); }
+.pig .why { font-size:11.5px; color:#8a8a7a; }
+@media print { body { background:#fff; padding:0; } .card { box-shadow:none; border:1px solid #ccc; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>🐼 大熊猫国家公园 · 4人竞赛策略卡</h1>
+<div class="sub">由 600 局×多组电脑模拟验证 · 每条结论都有数据出处</div>
+
+<div class="card">
+<h2>① 分数是四个存钱罐——先看哪个罐子钱最多</h2>
+<div class="piggy">
+  <div class="pig"><div class="amt">18~23分</div><div class="nm">🏠 栖息地罐</div><div class="why">地形连通区数字和≥10 触发，压盖几得几分；可用「榨干法」连压多次</div></div>
+  <div class="pig"><div class="amt">9~12分</div><div class="nm">🃏 手牌罐</div><div class="why">终局手里每凑一个"不同数字"，数字本身加分</div></div>
+  <div class="pig"><div class="amt">0~13分</div><div class="nm">🐾 廊道罐</div><div class="why">闭合+区内≥2枚自己米宝；不主动收口≈0，主动收口实测 6~13 分——最大变量</div></div>
+  <div class="pig"><div class="amt">≈0.3分</div><div class="nm">🐦 生物罐</div><div class="why">跟着廊道才有，廊道没有它就是0</div></div>
+</div>
+<p><b>结论：把力气全部花在栖息地罐和手牌罐上。</b>廊道"顺手就收、绝不强求"。</p>
+</div>
+
+<div class="card">
+<h2>② 雪球引擎：为什么"同色边"是全游戏最强的一件事</h2>
+<p>规则书说：你打出的板块，每有一条边和邻居<b>同种地形无缝相接</b>，就从牌堆<b>多摸 1 块</b>。</p>
+<div class="tip">🡒 放 1 块、贴中 2 条同色边 = 手里牌变多！贴中 1 条 = 不变。牌多 → 选择多 → 更容易贴中 → 牌更多……这就是<b>滚雪球</b>。</div>
+<p>模拟数据：会转雪球的人平均每次贴中 <b>1.63 条</b>同色边，随便放的人只有 <b>0.35 条</b>。雪球滚到终局，你手里留着 5~6 张牌（手牌分 8~11），不滚雪球的人手里只剩 0.4 张（≈1 分）。<b>光这一项差 7~10 分。</b></p>
+</div>
+
+<div class="card">
+<h2>③ 每一步怎么选（30 秒流程，背下来）</h2>
+<div class="formula">落子分值 = 100×同色无缝边数 + 20×贴自己地形的边数 + 6×板块数字<small>所有"位置 × 旋转"都打一遍分，挑分最高的落子</small></div>
+<div class="step"><div class="stepnum">1</div><div><p><b>转一转</b>：手里这块牌怎么转同色边最多？那就是候选动作。</p></div></div>
+<div class="step"><div class="stepnum">2</div><div><p><b>并列怎么办</b>：两种转法同色边一样多 → 选<b>贴自己地形</b>的那边（长自己的地盘，不喂别人）。</p></div></div>
+<div class="step"><div class="stepnum">3</div><div><p><b>看猪罐</b>：数一数场上每种地形连到几分了。<b>8~9 分的地形是公共目标</b>——谁的地形谁放米宝！想办法把自己的地形先推过 10。</p></div></div>
+<div class="step"><div class="stepnum">4</div><div><p><b>管好存粮</b>：每种数字你有 3 张。<b>同数字只用掉 2 张，留 1 张在手里</b>；做同色拼时优先用重复的、数字小的牌。</p></div></div>
+<div class="step"><div class="stepnum">5</div><div><p><b>米宝纪律</b>：地形一凑满 10，<b>立刻放</b>（米宝锁在面板上 = 白白作废）。压盖顺序：候选板块 ≤ 剩余米宝 → <b>从小到大压（榨干法）</b>；不够放 → 从大到小压。详见 ⑧。</p></div></div>
+</div>
+
+<div class="card">
+<h2>④ 读心术：对手会怎么出？他出错了你怎么捡便宜</h2>
+<table>
+<tr><th style="width:38%">对手的常见行为</th><th>你的机会</th></tr>
+<tr><td><b>他随便放，不找同色边</b><br><span style="color:#999;font-size:12px">（最多新手犯的错）</span></td><td>他的手牌很快见底 → 牌堆先耗尽 → 终局提前，而你雪球正大、手里一手好牌。稳稳收下 7~10 分手牌差。</td></tr>
+<tr><td><b>他无缝贴你的地形</b><br><span style="color:#999;font-size:12px">（帮你把面积推向 10）</span></td><td>说声谢谢：你的地盘他也在帮你长。盯着面积，一满 10 立刻压该区<b>数字最大</b>的板块。</td></tr>
+<tr><td><b>他舍不得放米宝（想留到"更值"的时候）</b></td><td>米宝不放到场上不发分！你抢先把所有大数字触发收掉。终局他米宝原封不动 = 0 分库存。</td></tr>
+<tr><td><b>他一门心思追廊道</b><br><span style="color:#999;font-size:12px">（围着封口转）</span></td><td>廊道平均不到 1 分，他却为它放弃了同色边（= 放弃摸牌 = 手牌停转）。你闷头滚雪球，均分差 5 分以上。</td></tr>
+<tr><td><b>他把 5、4 大数字牌早早拼掉</b></td><td>大数字有两个用途：当米宝靶子（5分）+ 终局留手里（5分）。他扔了 = 双份让给你。你留一套 1~5 各一张，终局手牌分直逼上限 15。</td></tr>
+<tr><td><b>他压小数字（1、2）建栖息地</b></td><td>盖 1 得 1、盖 5 得 5——米宝成本一样！他先压小数字 = 把 4、5 的坑位留给你。你攒米宝专压大的。</td></tr>
+<tr><td><b>他的地形卡在 9 分，就差一块</b></td><td>规则：数字被米宝盖住就<b>不再计入面积</b>。如果他地形里有一块"2"，你若顺路把米宝放到那块（盖 2 得 2），他的面积掉回 7，永远够不着 10。这是合规操作（你在建自己的栖息地），且模拟里是唯一在 4 人局仍为正收益的压制手段（+0.4~0.8 分）。</td></tr>
+<tr><td><b>先手的他急着开分基地</b></td><td>模拟实锤：先手胜率 20% &lt; 公平份额 25%（空棋盘贴不到同色边）。你能选座就选<b>后手</b>；先手也别慌——贴着起始板块转，一样滚雪球。</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>⑤ 终局倒计时（牌堆见底时）</h2>
+<div class="warn">⚠️ 任何人牌堆或米宝耗尽 → 本轮结束<b>再打最后一轮</b>就收摊。所以最后几轮要切换模式：</div>
+<ul>
+<li><b>牌堆空了</b>：摸牌雪球停转，手里的牌只出不进 → <b>先打重复数字、小数字</b>，把 5、4、3 留到最后一刻。</li>
+<li><b>最后一轮前</b>：数一数自己手牌分。如果手里已有 4 个不同数字，最后一块牌尽量打掉重复的、换回新数字。</li>
+<li><b>别人的地形 9 分差一块</b>：如果那块"凑整"的板子正好你手里也有同款，正常打你的——他凑不凑满看他运气，<b>不要为拦他牺牲自己的同色边</b>（模拟证明是亏的）。</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>⑥ 一句话总纲</h2>
+<p class="big">"同色贴贴滚雪球，大数字上盖章章，一手好牌留到底，廊道随缘不追它。"</p>
+<div class="tip">📎 赛场速查：<b>转</b>（找同色边最多的转法）→ <b>挑</b>（并列选贴自己地形）→ <b>数</b>（谁家地形快满 10）→ <b>盖</b>（满了立刻压最大数字）→ <b>留</b>（每种数字留一张在手里）。</div>
+<p style="font-size:12px;color:#8a8a7a">数据出处：4 人局镜像引擎对局 600 局（胜率置信区间 ±1.8%）、策略对照模拟 250~400 局/组。单人总分标准差 9.4 → 单局有运气成分，均分优势 +1 分 ≈ 胜率 +3~4%，多局制下复利体现。</p>
+</div>
+
+<div class="card">
+<h2>⑦ 运气藏在哪里（800 局解剖数据）</h2>
+<p>模拟 800 局×4 人，把每个人的总分波动拆开看：</p>
+<table>
+<tr><th>得分环节</th><th>分数波动(标准差)</th><th>占总波动</th><th>解读</th></tr>
+<tr><td>🏠 栖息地</td><td>±7.0 分</td><td><b>64%</b></td><td><b>运气大头在这</b>：地形能不能链式连成大片、轮到你触发时场上还剩没有 4、5 的大数字坑位</td></tr>
+<tr><td>🃏 手牌</td><td>±3.3 分</td><td>14%</td><td><b>最稳定=技术底线</b>：靠纪律就能拿满，几乎不受运气影响</td></tr>
+<tr><td>🐾 廊道</td><td>±1.8 分</td><td>4%</td><td>彩票：均值极小，纯看棋盘形状</td></tr>
+<tr><td>🐦 生物</td><td>±0.7 分</td><td>1%</td><td>廊道的赠品</td></tr>
+</table>
+<h3>三个具体运气点</h3>
+<ul>
+<li><b>牌堆洗牌运</b>：你的 15 张牌顺序随机——但影响小。实验让四人摸完全相同的牌序，胜负依然主要由落子选择决定（先手胜 85% 是位置先机，不是牌好）。</li>
+<li><b>座位运</b>：实测四座位胜率 24%/30%/22%/30%（公平 25%）——影响约 ±3%，能选座就避开 3 号位。</li>
+<li><b>终局触发运</b>：谁先耗尽谁触发"最后一轮"，该玩家胜率 36% &gt; 25%——更多是强者的结果而非原因（他滚雪球快所以先耗尽），但说明<b>游戏在你牌堆打完那一刻就定型了</b>，最后的反扑窗口很小。</li>
+</ul>
+<h3>对抗运气的正确姿势</h3>
+<p>运气 64% 藏在栖息地 → 策略是<b>把米宝数怼上去</b>（米宝数与栖息地分相关系数 0.95，是最强的可控制变量）；手牌罐是<b>锚</b>（技术底线 8~12 分，每局稳定入账）；方差大意味着<b>单局有爆冷</b>，多局制或大分差目标下策略优势才完全兑现。每局最大分差平均 18 分——落后 10 分以内永远不要放弃。</p>
+</div>
+
+</div>
+
+<div class="card">
+<h2>⑧ 压盖顺序：榨干法 vs 压大数（本作最容易被忽略的送分点）</h2>
+<p>触发栖息地后，<b>压盖哪块板块是可以自己挑的</b>，而顺序直接决定你这一波能拿多少分——因为压盖一次，面积就减掉那个数字，<b>减完还 ≥10 就能继续压</b>。</p>
+<table>
+<tr><th>区域面积 19，板块数字 5/4/5/4/1</th><th>压盖顺序</th><th>压盖次数</th><th>栖息地得分</th></tr>
+<tr><td><b>榨干法（小→大）</b></td><td>1 → 4 → 4 → 5 → 5</td><td>5 次</td><td><b>19 分</b></td></tr>
+<tr><td>压大数（大→小）</td><td>5 → 5（面积 19→14→9 停摆）</td><td>2 次</td><td>10 分</td></tr>
+</table>
+<p><b>一句话判定</b>：候选板块数 ≤ 你剩下的米宝 → <b>从小到大压</b>，把整片区域榨干；候选板块数 &gt; 剩余米宝 → 米宝不够用，改成<b>从大到小压</b>，让每枚米宝换到最大即时分。</p>
+<h3>为什么有时"压小数字"反而赚</h3>
+<ul>
+<li>压小数字，面积掉得慢 → 停留在 ≥10 的时间更长 → <b>压盖次数更多</b>；</li>
+<li>压盖次数多 = 栖息地分数更高，<b>同时米宝在场上更密集</b>，更容易凑出「闭合 + ≥2 枚米宝」的生态廊道；</li>
+<li>反向思维：如果你只想快点结束结算、把米宝留给别处，就压大数字（19→9 一次停摆）。</li>
+</ul>
+<h3>廊道：模拟里最被低估的一罐</h3>
+<p>官方教学视频四家的廊道分别是 13 / 10 / 8 / 11 分，<b>占比接近总分的两成</b>；而随机走子的 AI 平均只有 1.7 分——差距几乎全部来自<b>有没有主动收口</b>。视频里大熊猫在最后一轮做的事就是「这条廊道两头已经封闭，大熊猫选择封闭」。</p>
+<ul>
+<li>廊道成立 = ① 闭合（区域边界不再有空邻接）+ ② 区内 ≥2 枚你自己的米宝，得分 = 途经板块数；</li>
+<li>因此米宝<b>不要撒胡椒面</b>：同一片区域里凑够 2 枚，比在三片区域各 1 枚有价值得多；</li>
+<li>终局前一轮，优先用剩下的牌<b>把自己主战区四周的缺口堵上</b>（哪怕那条边不同色、不摸牌），把 6~13 分一次性收进口袋。</li>
+</ul>
+<p style="font-size:12px;color:#8a8a7a">数据出处：面积模型引擎 300 局四人对照模拟（平均总分 32，最高 58）；压盖顺序对照为解析计算 + 引擎回归验证（tests/area_tests.js A6）。</p>
+</div>
+</body>
+</html>

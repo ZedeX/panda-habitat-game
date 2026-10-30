@@ -1,0 +1,618 @@
+{
+ "terrains": {
+  "bamboo": {
+   "name": "竹林",
+   "fill": "#8CBE6B",
+   "dark": "#5B8E47",
+   "light": "#B4D894",
+   "num": "#37631F",
+   "animal": "panda"
+  },
+  "forest": {
+   "name": "森林",
+   "fill": "#D9A85C",
+   "dark": "#A5743A",
+   "light": "#F0CE95",
+   "num": "#7E5118",
+   "animal": "musk"
+  },
+  "alpine": {
+   "name": "高山",
+   "fill": "#9A8FC6",
+   "dark": "#685C9A",
+   "light": "#C8C0E1",
+   "num": "#453C7A",
+   "animal": "snow"
+  },
+  "river": {
+   "name": "水域",
+   "fill": "#5E9BD0",
+   "dark": "#33709F",
+   "light": "#A5CCE9",
+   "num": "#1B4E73",
+   "animal": "otter"
+  }
+ },
+ "animals": {
+  "panda": {
+   "name": "大熊猫",
+   "body": "#2E2E2E"
+  },
+  "musk": {
+   "name": "林麝",
+   "body": "#9A7448"
+  },
+  "snow": {
+   "name": "雪豹",
+   "body": "#C3C7CC"
+  },
+  "otter": {
+   "name": "欧亚水獭",
+   "body": "#7E5630"
+  }
+ },
+ "players": {
+  "bamboo": {
+   "index": 0,
+   "tiles": [
+    {
+     "id": "t0_00",
+     "player": 0,
+     "number": 1,
+     "own": "bamboo",
+     "other": "river",
+     "companion": null,
+     "face": "tile_bamboo_river_1.png"
+    },
+    {
+     "id": "t0_01",
+     "player": 0,
+     "number": 1,
+     "own": "bamboo",
+     "other": "alpine",
+     "companion": null,
+     "face": "tile_bamboo_alpine_1.png"
+    },
+    {
+     "id": "t0_02",
+     "player": 0,
+     "number": 1,
+     "own": "bamboo",
+     "other": "forest",
+     "companion": null,
+     "face": "tile_bamboo_forest_1.png"
+    },
+    {
+     "id": "t0_03",
+     "player": 0,
+     "number": 2,
+     "own": "bamboo",
+     "other": "river",
+     "companion": "takin",
+     "face": "tile_bamboo_river_2.png"
+    },
+    {
+     "id": "t0_04",
+     "player": 0,
+     "number": 2,
+     "own": "bamboo",
+     "other": "alpine",
+     "companion": "pika",
+     "face": "tile_bamboo_alpine_2.png"
+    },
+    {
+     "id": "t0_05",
+     "player": 0,
+     "number": 2,
+     "own": "bamboo",
+     "other": "forest",
+     "companion": "panda_cub",
+     "face": "tile_bamboo_forest_2.png"
+    },
+    {
+     "id": "t0_06",
+     "player": 0,
+     "number": 3,
+     "own": "bamboo",
+     "other": "forest",
+     "companion": "takin",
+     "face": "tile_bamboo_forest_3.png"
+    },
+    {
+     "id": "t0_07",
+     "player": 0,
+     "number": 3,
+     "own": "bamboo",
+     "other": "alpine",
+     "companion": "pika",
+     "face": "tile_bamboo_alpine_3.png"
+    },
+    {
+     "id": "t0_08",
+     "player": 0,
+     "number": 3,
+     "own": "bamboo",
+     "other": "river",
+     "companion": "wildcat",
+     "face": "tile_bamboo_river_3.png"
+    },
+    {
+     "id": "t0_09",
+     "player": 0,
+     "number": 4,
+     "own": "bamboo",
+     "other": "alpine",
+     "companion": null,
+     "face": "tile_bamboo_alpine_4.png"
+    },
+    {
+     "id": "t0_10",
+     "player": 0,
+     "number": 4,
+     "own": "bamboo",
+     "other": "river",
+     "companion": null,
+     "face": "tile_bamboo_river_4.png"
+    },
+    {
+     "id": "t0_11",
+     "player": 0,
+     "number": 4,
+     "own": "bamboo",
+     "other": "forest",
+     "companion": null,
+     "face": "tile_bamboo_forest_4.png"
+    },
+    {
+     "id": "t0_12",
+     "player": 0,
+     "number": 5,
+     "own": "bamboo",
+     "other": "alpine",
+     "companion": null,
+     "face": "tile_bamboo_alpine_5.png"
+    },
+    {
+     "id": "t0_13",
+     "player": 0,
+     "number": 5,
+     "own": "bamboo",
+     "other": "forest",
+     "companion": null,
+     "face": "tile_bamboo_forest_5.png"
+    },
+    {
+     "id": "t0_14",
+     "player": 0,
+     "number": 5,
+     "own": "bamboo",
+     "other": "river",
+     "companion": null,
+     "face": "tile_bamboo_river_5.png"
+    }
+   ]
+  },
+  "forest": {
+   "index": 1,
+   "tiles": [
+    {
+     "id": "t1_00",
+     "player": 1,
+     "number": 1,
+     "own": "forest",
+     "other": "river",
+     "companion": null,
+     "face": "tile_forest_river_1.png"
+    },
+    {
+     "id": "t1_01",
+     "player": 1,
+     "number": 1,
+     "own": "forest",
+     "other": "alpine",
+     "companion": null,
+     "face": "tile_forest_alpine_1.png"
+    },
+    {
+     "id": "t1_02",
+     "player": 1,
+     "number": 1,
+     "own": "forest",
+     "other": "bamboo",
+     "companion": null,
+     "face": "tile_forest_bamboo_1.png"
+    },
+    {
+     "id": "t1_03",
+     "player": 1,
+     "number": 2,
+     "own": "forest",
+     "other": "bamboo",
+     "companion": "panda_cub",
+     "face": "tile_forest_bamboo_2.png"
+    },
+    {
+     "id": "t1_04",
+     "player": 1,
+     "number": 2,
+     "own": "forest",
+     "other": "alpine",
+     "companion": "wildcat",
+     "face": "tile_forest_alpine_2.png"
+    },
+    {
+     "id": "t1_05",
+     "player": 1,
+     "number": 2,
+     "own": "forest",
+     "other": "river",
+     "companion": "pika",
+     "face": "tile_forest_river_2.png"
+    },
+    {
+     "id": "t1_06",
+     "player": 1,
+     "number": 3,
+     "own": "forest",
+     "other": "bamboo",
+     "companion": "pika",
+     "face": "tile_forest_bamboo_3.png"
+    },
+    {
+     "id": "t1_07",
+     "player": 1,
+     "number": 3,
+     "own": "forest",
+     "other": "river",
+     "companion": "monkey",
+     "face": "tile_forest_river_3.png"
+    },
+    {
+     "id": "t1_08",
+     "player": 1,
+     "number": 3,
+     "own": "forest",
+     "other": "alpine",
+     "companion": "deer",
+     "face": "tile_forest_alpine_3.png"
+    },
+    {
+     "id": "t1_09",
+     "player": 1,
+     "number": 4,
+     "own": "forest",
+     "other": "bamboo",
+     "companion": null,
+     "face": "tile_forest_bamboo_4.png"
+    },
+    {
+     "id": "t1_10",
+     "player": 1,
+     "number": 4,
+     "own": "forest",
+     "other": "river",
+     "companion": null,
+     "face": "tile_forest_river_4.png"
+    },
+    {
+     "id": "t1_11",
+     "player": 1,
+     "number": 4,
+     "own": "forest",
+     "other": "alpine",
+     "companion": null,
+     "face": "tile_forest_alpine_4.png"
+    },
+    {
+     "id": "t1_12",
+     "player": 1,
+     "number": 5,
+     "own": "forest",
+     "other": "river",
+     "companion": null,
+     "face": "tile_forest_river_5.png"
+    },
+    {
+     "id": "t1_13",
+     "player": 1,
+     "number": 5,
+     "own": "forest",
+     "other": "bamboo",
+     "companion": null,
+     "face": "tile_forest_bamboo_5.png"
+    },
+    {
+     "id": "t1_14",
+     "player": 1,
+     "number": 5,
+     "own": "forest",
+     "other": "alpine",
+     "companion": null,
+     "face": "tile_forest_alpine_5.png"
+    }
+   ]
+  },
+  "alpine": {
+   "index": 2,
+   "tiles": [
+    {
+     "id": "t2_00",
+     "player": 2,
+     "number": 1,
+     "own": "alpine",
+     "other": "bamboo",
+     "companion": null,
+     "face": "tile_alpine_bamboo_1.png"
+    },
+    {
+     "id": "t2_01",
+     "player": 2,
+     "number": 1,
+     "own": "alpine",
+     "other": "forest",
+     "companion": null,
+     "face": "tile_alpine_forest_1.png"
+    },
+    {
+     "id": "t2_02",
+     "player": 2,
+     "number": 1,
+     "own": "alpine",
+     "other": "river",
+     "companion": null,
+     "face": "tile_alpine_river_1.png"
+    },
+    {
+     "id": "t2_03",
+     "player": 2,
+     "number": 2,
+     "own": "alpine",
+     "other": "bamboo",
+     "companion": "panda_cub",
+     "face": "tile_alpine_bamboo_2.png"
+    },
+    {
+     "id": "t2_04",
+     "player": 2,
+     "number": 2,
+     "own": "alpine",
+     "other": "river",
+     "companion": "takin",
+     "face": "tile_alpine_river_2.png"
+    },
+    {
+     "id": "t2_05",
+     "player": 2,
+     "number": 2,
+     "own": "alpine",
+     "other": "forest",
+     "companion": "monkey",
+     "face": "tile_alpine_forest_2.png"
+    },
+    {
+     "id": "t2_06",
+     "player": 2,
+     "number": 3,
+     "own": "alpine",
+     "other": "river",
+     "companion": "deer",
+     "face": "tile_alpine_river_3.png"
+    },
+    {
+     "id": "t2_07",
+     "player": 2,
+     "number": 3,
+     "own": "alpine",
+     "other": "forest",
+     "companion": "takin",
+     "face": "tile_alpine_forest_3.png"
+    },
+    {
+     "id": "t2_08",
+     "player": 2,
+     "number": 3,
+     "own": "alpine",
+     "other": "bamboo",
+     "companion": "monkey",
+     "face": "tile_alpine_bamboo_3.png"
+    },
+    {
+     "id": "t2_09",
+     "player": 2,
+     "number": 4,
+     "own": "alpine",
+     "other": "bamboo",
+     "companion": null,
+     "face": "tile_alpine_bamboo_4.png"
+    },
+    {
+     "id": "t2_10",
+     "player": 2,
+     "number": 4,
+     "own": "alpine",
+     "other": "river",
+     "companion": null,
+     "face": "tile_alpine_river_4.png"
+    },
+    {
+     "id": "t2_11",
+     "player": 2,
+     "number": 4,
+     "own": "alpine",
+     "other": "forest",
+     "companion": null,
+     "face": "tile_alpine_forest_4.png"
+    },
+    {
+     "id": "t2_12",
+     "player": 2,
+     "number": 5,
+     "own": "alpine",
+     "other": "river",
+     "companion": null,
+     "face": "tile_alpine_river_5.png"
+    },
+    {
+     "id": "t2_13",
+     "player": 2,
+     "number": 5,
+     "own": "alpine",
+     "other": "bamboo",
+     "companion": null,
+     "face": "tile_alpine_bamboo_5.png"
+    },
+    {
+     "id": "t2_14",
+     "player": 2,
+     "number": 5,
+     "own": "alpine",
+     "other": "forest",
+     "companion": null,
+     "face": "tile_alpine_forest_5.png"
+    }
+   ]
+  },
+  "river": {
+   "index": 3,
+   "tiles": [
+    {
+     "id": "t3_00",
+     "player": 3,
+     "number": 1,
+     "own": "river",
+     "other": "bamboo",
+     "companion": null,
+     "face": "tile_river_bamboo_1.png"
+    },
+    {
+     "id": "t3_01",
+     "player": 3,
+     "number": 1,
+     "own": "river",
+     "other": "alpine",
+     "companion": null,
+     "face": "tile_river_alpine_1.png"
+    },
+    {
+     "id": "t3_02",
+     "player": 3,
+     "number": 1,
+     "own": "river",
+     "other": "forest",
+     "companion": null,
+     "face": "tile_river_forest_1.png"
+    },
+    {
+     "id": "t3_03",
+     "player": 3,
+     "number": 2,
+     "own": "river",
+     "other": "bamboo",
+     "companion": "panda_cub",
+     "face": "tile_river_bamboo_2.png"
+    },
+    {
+     "id": "t3_04",
+     "player": 3,
+     "number": 2,
+     "own": "river",
+     "other": "alpine",
+     "companion": "wildcat",
+     "face": "tile_river_alpine_2.png"
+    },
+    {
+     "id": "t3_05",
+     "player": 3,
+     "number": 2,
+     "own": "river",
+     "other": "forest",
+     "companion": "takin",
+     "face": "tile_river_forest_2.png"
+    },
+    {
+     "id": "t3_06",
+     "player": 3,
+     "number": 3,
+     "own": "river",
+     "other": "forest",
+     "companion": "wildcat",
+     "face": "tile_river_forest_3.png"
+    },
+    {
+     "id": "t3_07",
+     "player": 3,
+     "number": 3,
+     "own": "river",
+     "other": "bamboo",
+     "companion": "takin",
+     "face": "tile_river_bamboo_3.png"
+    },
+    {
+     "id": "t3_08",
+     "player": 3,
+     "number": 3,
+     "own": "river",
+     "other": "alpine",
+     "companion": "pika",
+     "face": "tile_river_alpine_3.png"
+    },
+    {
+     "id": "t3_09",
+     "player": 3,
+     "number": 4,
+     "own": "river",
+     "other": "forest",
+     "companion": null,
+     "face": "tile_river_forest_4.png"
+    },
+    {
+     "id": "t3_10",
+     "player": 3,
+     "number": 4,
+     "own": "river",
+     "other": "bamboo",
+     "companion": null,
+     "face": "tile_river_bamboo_4.png"
+    },
+    {
+     "id": "t3_11",
+     "player": 3,
+     "number": 4,
+     "own": "river",
+     "other": "alpine",
+     "companion": null,
+     "face": "tile_river_alpine_4.png"
+    },
+    {
+     "id": "t3_12",
+     "player": 3,
+     "number": 5,
+     "own": "river",
+     "other": "forest",
+     "companion": null,
+     "face": "tile_river_forest_5.png"
+    },
+    {
+     "id": "t3_13",
+     "player": 3,
+     "number": 5,
+     "own": "river",
+     "other": "alpine",
+     "companion": null,
+     "face": "tile_river_alpine_5.png"
+    },
+    {
+     "id": "t3_14",
+     "player": 3,
+     "number": 5,
+     "own": "river",
+     "other": "bamboo",
+     "companion": null,
+     "face": "tile_river_bamboo_5.png"
+    }
+   ]
+  }
+ },
+ "startTile": "start.png",
+ "tile": 192
+}
