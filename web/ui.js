@@ -347,22 +347,37 @@ function drawMeepleAt(cx, cy, size, terrainKey) {
   const animal = ANIMAL_OF[terrainKey];
   const mim = imgOf(`meeple_${animal}.png`);
   if (ready(mim)) {
-    const w = size * 1.18;   // keep inside the triangle (centroid->diagonal margin)
+    const w = size * 1.30;   // a bit larger so animal features read on the board
+    // soft drop shadow so the meeple stays visible on any terrain (e.g. pale snow leopard)
+    ctx.save();
+    ctx.shadowColor = "rgba(0,0,0,0.38)";
+    ctx.shadowBlur = size * 0.32;
+    ctx.shadowOffsetY = size * 0.10;
     ctx.drawImage(mim, cx - w/2, cy - w/2, w, w);
+    ctx.restore();
     return;
   }
-  const colors = { panda: "#2B2B2B", musk: "#8A6B45", snow: "#B9BFC4", otter: "#7A5230" };
-  ctx.fillStyle = colors[animal];
+  // Fallback: a clean meeple silhouette (never a slime blob).
+  const colors = { panda: "#2B2B2B", musk: "#8A6B45", snow: "#AEB6BD", otter: "#7A5230" };
+  const c = colors[animal] || "#888";
+  ctx.save();
+  ctx.fillStyle = c;
+  ctx.strokeStyle = "rgba(20,24,20,0.55)";
+  ctx.lineWidth = Math.max(1.5, size * 0.10);
+  // body
   ctx.beginPath();
-  ctx.ellipse(cx, cy - size*0.15, size*0.32, size*0.30, 0, 0, Math.PI*2); // head
-  ctx.fill();
+  ctx.ellipse(cx, cy + size*0.22, size*0.42, size*0.40, 0, 0, Math.PI*2);
+  ctx.fill(); ctx.stroke();
+  // head
   ctx.beginPath();
-  ctx.ellipse(cx, cy + size*0.28, size*0.40, size*0.30, 0, 0, Math.PI*2); // body
-  ctx.fill();
-  ctx.strokeStyle = "rgba(255,255,255,0.9)";
-  ctx.lineWidth = Math.max(1, size*0.06);
-  ctx.stroke();
-  ctx.lineWidth = 1;
+  ctx.arc(cx, cy - size*0.30, size*0.34, 0, Math.PI*2);
+  ctx.fill(); ctx.stroke();
+  // ears (animal cue)
+  ctx.beginPath();
+  ctx.arc(cx - size*0.26, cy - size*0.52, size*0.12, 0, Math.PI*2);
+  ctx.arc(cx + size*0.26, cy - size*0.52, size*0.12, 0, Math.PI*2);
+  ctx.fill(); ctx.stroke();
+  ctx.restore();
 }
 
 function compEmoji(sp) {
