@@ -9,12 +9,16 @@ const path = require("path");
 const OUT = path.resolve("web/assets");
 const S = 256;
 
-// Thin cream plywood rim via dilation of the alpha channel -> clean outer outline only.
-const RIM = `<filter id="rim" x="-25%" y="-25%" width="150%" height="150%">
-  <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="d"/>
-  <feFlood flood-color="#ECE2C8" result="c"/>
-  <feComposite in="c" in2="d" operator="in" result="r"/>
-  <feMerge><feMergeNode in="r"/><feMergeNode in="SourceGraphic"/></feMerge>
+// Visible dark-wood outline via two dilations of the alpha channel: the ring
+// between outer(6) and inner(3) is flooded with a warm dark brown, giving a clean
+// ~3px cut-edge outline that separates the meeple from any tile background.
+const RIM = `<filter id="rim" x="-30%" y="-30%" width="160%" height="160%">
+  <feMorphology in="SourceAlpha" operator="dilate" radius="6" result="outer"/>
+  <feMorphology in="SourceAlpha" operator="dilate" radius="3" result="inner"/>
+  <feFlood flood-color="#43331E" result="dk"/>
+  <feComposite in="dk" in2="outer" operator="in" result="o1"/>
+  <feComposite in="o1" in2="inner" operator="out" result="ring"/>
+  <feMerge><feMergeNode in="ring"/><feMergeNode in="SourceGraphic"/></feMerge>
 </filter>`;
 
 function svg(inner) {
